@@ -7,9 +7,12 @@ const BoxList = () => {
   const INITIAL_STATE=[]
 
   const [boxes, setBoxes] = useState(INITIAL_STATE)
-  console.log(boxes)
   const addBox = (newBox) => {
     setBoxes(boxes => [...boxes, {...newBox, id: uuid()}])
+  }
+
+  const removeBox = (id) => {
+    setBoxes(boxes.filter(box => box.id !== id))
   }
 
   return (
@@ -18,7 +21,7 @@ const BoxList = () => {
       <NewBoxForm addBox={addBox} />
       <div>
         {boxes.map(({ backgroundColor, width, height, id }) => 
-          <Box backgroundColor={backgroundColor} width={Number(width)} height={Number(height)} key={id}/>)}
+          <Box backgroundColor={backgroundColor} width={Number(width)} height={Number(height)} removeBox={removeBox} id={id} key={id}/>)}
       </div>
     </div>
   )
